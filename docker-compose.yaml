@@ -1,0 +1,65 @@
+version: "3.3"
+services:
+  fh:
+    privileged: true
+    build: ./AS44399 
+    container_name: as44399 
+    networks:
+      link_bgp:
+        ipv4_address: 170.16.238.11
+      link_rpki:
+        ipv4_address: 173.16.238.11
+  linzag:
+    privileged: true
+    build: ./AS35369
+    container_name: as35369
+    networks:
+      link_bgp:
+        ipv4_address: 170.16.238.12
+  itandtel:
+    privileged: true
+    build: ./AS21013
+    container_name: as21013
+    networks:
+      link_bgp:
+        ipv4_address: 170.16.238.13
+  routinator:
+    privileged: true
+    build: ./Routinator
+    container_name: routinator
+    networks:
+      link_rpki:
+        ipv4_address: 173.16.238.12
+  fort:
+    privileged: true
+    build: ./Fort
+    container_name: fort
+    networks:
+      link_rpki:
+        ipv4_address: 173.16.238.13
+  octorpki:
+    privileged: true
+    build: ./OctoRPKI
+    container_name: octorpki
+    networks:
+      link_rpki:
+        ipv4_address: 173.16.238.14
+networks:
+  link_bgp:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 170.16.238.0/24
+  link_rpki:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 173.16.238.0/24
+
+
+
+
+    
+    
